@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Result</title>
+</head>
+<body>
+    <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: gainsboro;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    background-color: cornsilk;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 500px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: #2c3e50;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    font-size: 18px;
+  }
+
+  .highlight {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .net {
+    font-weight: bold;
+    color: #27ae60;
+    font-size: 17px;
+    margin-top: 10px;
+  }
+
+  .back-btn {
+    background-color: white; 
+      border: 1.5px solid black; 
+      padding: 10px 20px; 
+      font-size: 16px; 
+      font-weight: bold; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      transition: 0.3s ease;
+      display: block; 
+      margin-left: auto; 
+      margin-right: auto; 
+      width: 180px;
+  }
+
+  .back-btn:hover {
+    background-color: whitesmoke;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+  }
+</style>
+  <div class="container">
+    <h1>PAYROLL RESULT</h1>
+
+    <div class="row"><b>ID:</b> <span id="idNum"></span></div>
+    <div class="row"><b>NAME:</b> <span id="empName"></span></div>
+    <div class="row"><b>POSITION:</b> <span id="empPosition"></span></div>
+    <div class="row"><b>RATE:</b> <span id="empRate"></span></div>
+    <div class="row"><b>DAYS:</b> <span id="empDays"></span></div>
+
+    <hr>
+    <div class="row highlight"><b>GROSS PAY:</b> <span id="grossPay"></span></div>
+
+    <h2>DEDUCTIONS</h2>
+    <div class="row"><b>SSS (5%):</b> <span id="sss"></span></div>
+    <div class="row"><b>PAG-IBIG (3%):</b> <span id="pagibig"></span></div>
+    <div class="row"><b>PHILHEALTH (2%):</b> <span id="philhealth"></span></div>
+    <div class="row"><b>TAX (5%):</b> <span id="tax"></span></div>
+    <hr>
+    <div class="row highlight"><b>TOTAL DEDUCTION:</b> <span id="totalDeduction"></span></div>
+    <div class="row net"><b>NET PAY:</b> <span id="netPay"></span></div>
+
+    <button class="back-btn" onclick="goBack()">BACK</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "index.html";
+    }
+
+    const data = JSON.parse(localStorage.getItem("payrollData"));
+
+    if (data) {
+      const gross = data.rate * data.days;
+      const sss = gross * 0.05;
+      const pagibig = gross * 0.03;
+      const philhealth = gross * 0.02;
+      const tax = gross * 0.05;
+      const total = sss + pagibig + philhealth + tax;
+      const net = gross - total;
+
+      document.getElementById("idNum").textContent = data.idNumber;
+      document.getElementById("empName").textContent = `${data.lastName}, ${data.firstName} ${data.middleName.charAt(0)}.`;
+      document.getElementById("empPosition").textContent = data.position;
+      document.getElementById("empRate").textContent = data.rate.toFixed(2);
+      document.getElementById("empDays").textContent = data.days;
+      document.getElementById("grossPay").textContent = gross.toFixed(2);
+      document.getElementById("sss").textContent = sss.toFixed(2);
+      document.getElementById("pagibig").textContent = pagibig.toFixed(2);
+      document.getElementById("philhealth").textContent = philhealth.toFixed(2);
+      document.getElementById("tax").textContent = tax.toFixed(2);
+      document.getElementById("totalDeduction").textContent = total.toFixed(2);
+      document.getElementById("netPay").textContent = net.toFixed(2);
+    } 
+    else {
+      alert("No data found! Please fill up the form first.");
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>

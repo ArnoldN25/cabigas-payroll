@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GRC Payroll Program</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: gainsboro;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: cornsilk;
+      padding: 35px 45px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      width: 100%;
+      max-width: 700px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 35px;
+      color: #333;
+    }
+    
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    label {
+      flex: 1;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input {
+      flex: 2;
+      padding: 8px;
+      border: 1px solid black;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    button {
+      background-color: white; 
+      border: 1.5px solid black; 
+      padding: 12px 30px; 
+      font-size: 16px; 
+      font-weight: bold; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      transition: 0.3s ease;
+      display: block; 
+      margin-left: auto; 
+      margin-right: 1px; 
+      width: 180px;
+    }
+
+    button:hover {
+      background-color: whitesmoke;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>GRC PAYROLL PROGRAM</h1>
+    <form id="payrollForm">
+      <div class="form-group">
+        <label>ID Number:</label>
+        <input type="text" id="idNumber">
+      </div>
+      <div class="form-group">
+        <label>Last Name:</label>
+        <input type="text" id="LastName">
+      </div>
+      <div class="form-group">
+        <label>First Name:</label>
+        <input type="text" id="FirstName">
+      </div>
+      <div class="form-group">
+        <label>Middle Name:</label>
+        <input type="text" id="MiddleName">
+      </div>
+      <div class="form-group">
+        <label>Position:</label>
+        <input type="text" id="Position">
+      </div>
+      <div class="form-group">
+        <label>Rate:</label>
+        <input type="number" id="rate">
+      </div>
+      <div class="form-group">
+        <label>Work Days:</label>
+        <input type="number" id="days">
+      </div>
+      <button type="submit">SUBMIT</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("payrollForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const payrollData = {
+        idNumber: document.getElementById("idNumber").value,
+        lastName: document.getElementById("LastName").value,
+        firstName: document.getElementById("FirstName").value,
+        middleName: document.getElementById("MiddleName").value,
+        position: document.getElementById("Position").value,
+        rate: parseFloat(document.getElementById("rate").value),
+        days: parseInt(document.getElementById("days").value)
+      };
+
+      localStorage.setItem("payrollData", JSON.stringify(payrollData));
+      window.location.href = "calculate.html";
+    });
+  </script>
+</body>
+</html>
